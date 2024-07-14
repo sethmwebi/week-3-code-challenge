@@ -1,4 +1,5 @@
 const movieItem = document.getElementsByClassName("movie-item")[0];
+const listMovies = document.getElementById("films");
 const BASE_URL = "http://localhost:8001";
 
 const getSingleMovie = async (id) => {
@@ -46,3 +47,19 @@ const getSingleMovie = async (id) => {
 };
 
 getSingleMovie(1);
+
+const getAllMovies = async () => {
+  try {
+    const allMovies = await fetch(`${BASE_URL}/films`);
+    const result = await allMovies.json();
+    result.forEach((item) => {
+      const li = document.createElement("li");
+      li.innerText = item.title;
+      listMovies.appendChild(li);
+    });
+  } catch (error) {
+    console.log("something went wrong");
+  }
+};
+
+getAllMovies();

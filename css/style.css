@@ -36,3 +36,16 @@
   justify-content: center;
   gap: 1rem;
 }
+
+.wrapper {
+  display: flex;
+}
+
+.movie-item {
+  flex: 0.8;
+}
+
+#films {
+  flex: 0.2;
+  list-style: none;
+}
