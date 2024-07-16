@@ -38,8 +38,39 @@ const getSingleMovie = async (id) => {
       metadata.appendChild(p);
 
       const h3 = document.createElement("h3");
-      h3.innerText = `Available tickets: ${result.capacity - result.tickets_sold}`;
+      h3.innerText = `Available tickets: ${Math.max(result.capacity - result.tickets_sold, 0)}`;
       metadata.appendChild(h3);
+
+      const buyTicket = document.createElement("button");
+      buyTicket.innerText = "Buy Ticket";
+      buyTicket.classList.add("buy-ticket");
+      buyTicket.addEventListener("click", async () => {
+        try {
+          let response = await fetch(`${BASE_URL}/films/${id}`);
+
+          let movie = await response.json();
+          console.log(movie);
+
+          movie.tickets_sold += 1;
+
+          const moviesSoldOut = result.capacity - result.tickets_sold;
+          if (moviesSoldOut <= 0) {
+            alert("sold out");
+            return;
+          }
+          response = await fetch(`${BASE_URL}/films/${id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(movie),
+          });
+          window.location.reload();
+        } catch (error) {
+          console.log("something went wrong!");
+        }
+      });
+      metadata.appendChild(buyTicket);
     }
   } catch (err) {
     console.log("Something went wrong!");

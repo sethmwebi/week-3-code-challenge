@@ -49,3 +49,9 @@
   flex: 0.2;
   list-style: none;
 }
+
+.buy-ticket {
+  width: fit-content;
+  padding: 4px 8px;
+  cursor: pointer;
+}
