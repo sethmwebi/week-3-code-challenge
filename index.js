@@ -1,6 +1,6 @@
 const movieItem = document.getElementsByClassName("movie-item")[0];
 const listMovies = document.getElementById("films");
-const BASE_URL = "http://localhost:8001";
+const BASE_URL = "https://json-server-x11f.onrender.com";
 
 const getSingleMovie = async (id) => {
   try {
